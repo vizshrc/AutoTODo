@@ -16,7 +16,7 @@ echo_YellowFont(){
 #======================================================================
 
 
-MENU_1=(1.退出脚本 2.更新脚本 3.安装docker)
+MENU_1=(1.退出脚本 2.更新脚本 3.安装docker 4.安装v2ray)
 select choice in ${MENU_1[@]};do
 	case $choice in
 		1.退出脚本 )
@@ -28,11 +28,15 @@ select choice in ${MENU_1[@]};do
 		2.更新脚本 )
 #更新脚本的思路是先下载已更新的版本并赋权执行，
 #break表示这个操作之后结束循环，在这里等于退出了当前的脚本
-			sudo chmod +x AutoToDo.sh&&./AutoToDo.sh&&echo_GreenFont "脚本已更新，请选择接下来的操作"
+
+			#删除
+			rm -f ./AutoTODo.sh\
+			&&wget -N --no-check-certificate "https://raw.githubusercontent.com/vizshrc/AutoTODo/master/AutoTODo.sh"&&echo_GreenFont "脚本已更新，请选择接下来的操作"&&sudo chmod +x AutoTODo.sh&&./AutoTODo.sh
+			
 			break
 			;;
 
-			
+
 		3.安装docker )
 			echo_YellowFont "您选择的是安装docker"
 			wget -N --no-check-certificate "https://raw.githubusercontent.com/vizshrc/AutoTODo/master/docker_install.sh"&&sudo chmod +x docker_install.sh&&./docker_install.sh
