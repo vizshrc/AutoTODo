@@ -20,11 +20,13 @@ select location_vps in 1.国外 2.国内 ;do
 		1.国外 )
 			curl -fsSL https://get.docker.com | bash -s docker
 			docker -v&&echo_GreenFont "docker已经就绪"||echo_RedFont "请检查出错"
+			
 			break
 			;;
 		2.国内 )
 			curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
 			docker -v&&echo_GreenFont "docker已经就绪"||echo_RedFont "请检查出错"
+			
 			break
 			;;
 	esac

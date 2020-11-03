@@ -16,12 +16,13 @@ echo_YellowFont(){
 #======================================================================
 
 
-MENU_1=(1.退出脚本 2.更新脚本 3.进入菜单)
+MENU_1=(1.退出脚本 2.更新脚本 3.安装docker)
 select choice in ${MENU_1[@]};do
 	case $choice in
 		1.退出脚本 )
 			echo_YellowFont "您选择的是${choice}"
 			echo_GreenFont "已退出脚本"
+
 			break
 			;;
 		2.更新脚本 )
@@ -30,11 +31,29 @@ select choice in ${MENU_1[@]};do
 			sudo chmod +x AutoToDo.sh&&./AutoToDo.sh&&echo_GreenFont "脚本已更新，请选择接下来的操作"
 			break
 			;;
+
+			
 		3.安装docker )
 			echo_YellowFont "您选择的是安装docker"
-			wget -N --no-check-certificate \
-			"https://raw.githubusercontent.com/vizshrc/AutoTODo/master/docker_install.sh"\
-			&&sudo chmod +x docker_install.sh&&./docker_install.sh
+			wget -N --no-check-certificate "https://raw.githubusercontent.com/vizshrc/AutoTODo/master/docker_install.sh"&&sudo chmod +x docker_install.sh&&./docker_install.sh
+
+#设置脚本循环，出去的条件是主动选择1.退出脚本
+#-f这个只能存在if中
+			if [[ -f AutoToDo.sh ]]; then
+				./AutoToDo.sh
+			fi
+			break
+			;;
+
+
+		4.安装v2ray )
+			echo_YellowFont "您选择的是安装v2ray"
+			wget -N --no-check-certificate "https://raw.githubusercontent.com/vizshrc/AutoTODo/master/v2ray_docker.sh"&&sudo chmod +x v2ray_docker.sh&&./v2ray_docker.sh
+#设置脚本循环，出去的条件是主动选择1.退出脚本
+#-f这个只能存在if中
+			if [[ -f AutoToDo.sh ]]; then
+				./AutoToDo.sh
+			fi
 			break
 			;;
 #github连接以前不用冒号，现在必须得！		
