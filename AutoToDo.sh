@@ -33,7 +33,7 @@ select choice in ${MENU_1[@]};do
 		3.安装docker )
 			echo_YellowFont "您选择的是安装docker"
 			wget -N --no-check-certificate \
-			"https://github.com/vizshrc/AutoTODo/blob/master/docker_install.sh"\
+			"https://raw.githubusercontent.com/vizshrc/AutoTODo/master/docker_install.sh"\
 			&&sudo chmod +x docker_install.sh&&./docker_install.sh
 			break
 			;;
