@@ -39,23 +39,27 @@ echo_YellowFont(){
   echo -e "\033[33m$1\033[0m"
 }
 #======================================================================
-
-select location_vps in 1.国外 2.国内 ;do
-	case $location_vps in
-		1.国外 )
+locaton_select(){
+  select location_vps in 1.国外 2.国内 ;do
+  case $location_vps in
+    1.国外 )
 #错误则需要sudo包，2>1&重定向错误信息 丢弃
-			(sudo -h >> /dev/null 2>&1) || ${apt} install sudo
-			curl -fsSL https://get.docker.com | bash -s docker
-			docker -v&&echo_GreenFont "docker已经就绪"||echo_RedFont "请检查出错"
-			
-			break
-			;;
-		2.国内 )
-			(sudo -h >> /dev/null 2>&1) || ${apt} install sudo
-			curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
-			docker -v&&echo_GreenFont "docker已经就绪"||echo_RedFont "请检查出错"
-			
-			break
-			;;
-	esac
+      (sudo -h >> /dev/null 2>&1) || ${apt} install sudo
+      curl -fsSL https://get.docker.com | bash -s docker
+      docker -v&&echo_GreenFont "docker已经就绪"||echo_RedFont "请检查出错"
+      
+      break
+      ;;
+    2.国内 )
+      (sudo -h >> /dev/null 2>&1) || ${apt} install sudo
+      curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
+      docker -v&&echo_GreenFont "docker已经就绪"||echo_RedFont "请检查出错"
+      
+      break
+      ;;
+  esac
 done
+}
+#======================================================================
+check_distribution&&locaton_select
+
