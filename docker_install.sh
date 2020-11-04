@@ -71,4 +71,6 @@ done
 check_root
 check_distribution
 locaton_select
+echo_GreenFont "普通用户使用docker需要将其加入docker组"
+echo_GreenFont "命令是gpasswd -a \$USER docker"
 

@@ -128,10 +128,15 @@ echo -n "输入你的v2伪装网址:";read v2web
 #检查v2path是否有在config_v2中定义（如选择只生成nginx配置时，需本函数内生成）
 [[ -z "${v2path}" ]] && read -e -p "（未定义path,请先定义）:" v2path
 
+echo -n "输入你的网站路径,如/var/www";read webfile_path
+[[ -z "${webfile_path}" ]] && read -e -p "（未定义path,请先定义）:" webfile_path
+[[-f ${webfile_path}]]||(echo_RedFont "网页路径不存在，请检查"&&exit 1)
+
 echo -e "ssl证书是否用acme.sh申请的【ecc】证书？且位于/root/.acme目录下？"
   read -e -p "(默认：yes):" check_sslpath
   [[ -z "${check_sslpath}" ]] && check_sslpath="yes"
 if [[ ${check_sslpath} == "yes" ]] ; then
+
 
 
 #必须检查证书是否存在
@@ -144,8 +149,6 @@ if [[ ${check_sslpath} == "yes" ]] ; then
   fi
 
 #证书没问题则生成配置
-#userHOMEpath用户主目录
-userHOMEpath = eh
 echo "
 server {
   listen 0.0.0.0:443 ssl;
@@ -156,7 +159,7 @@ server {
   server_name           ${v2web};
 
 ##
-  root   /var/www/${v2web};
+  root   ${webfile_path}/${v2web};
   index  index.php index.html index.htm;
 ##
         location ${v2path} { # 与 V2 配置中的 path 保持一致
@@ -197,7 +200,7 @@ server {
   server_name           ${v2web};
 
 ##这里说明网站地址
-  root   /var/www/${v2web};
+  root   ${webfile_path}/${v2web};
   index  index.php index.html index.htm;
 
 
