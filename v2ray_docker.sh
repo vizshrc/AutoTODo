@@ -8,7 +8,7 @@ check_distribution() {
         fi
         # Returning an empty string here should be alright since the
         # case statements don't act unless you provide an actual value
-        echo "你的系统是$lsb_dist"
+        echo_YellowFont "您的系统是$lsb_dist"
 
         #对适用发行版本的处理（定义包管理器命令）
         ##为了好看(习惯了debian)，所以包管理器的变量名就为apt,即${apt}
@@ -44,7 +44,7 @@ echo_YellowFont(){
 check_dockerInstall(){
   docker -v||(echo_RedFont "你没有安装docker,无法使用v2ray"&&echo_GreenFont "接下来自动为你安装docker,并启动服务"\
 &&wget -N --no-check-certificate "https://raw.githubusercontent.com/vizshrc/AutoTODo/master/docker_install.sh"\
-&&sudo chmod +x docker_install.sh&&./docker_install.sh)
+&&chmod +x docker_install.sh&&./docker_install.sh)
 }
 
 #======================================================================
@@ -246,8 +246,9 @@ docker run -d --name v2ray -v /etc/v2ray:/etc/v2ray -p 127.0.0.1:${v2port}:${v2p
 #输出必要信息一览表
 view_info(){
   echo -e "==============================================="
-  [[ ${need_v2} == "yes" ]] && echo_GreenFont "
+  (docker ps | grep v2ray) && echo_GreenFont "
   v2客户端连接信息
+  方案:ws+tls+web
   类型：VMess
   地址：${v2web}
   端口：443
@@ -255,17 +256,13 @@ view_info(){
   类型：ws
   路径(URL):${v2path}
   TLS:1（打开）
-  "
+  "\
+  ||echo_RedFont "请检查失败！"
 }
 #=============================================-=============================
 
 #主程序来了
-check_distribution
-check_dockerInstall
-config_v2
-config_nginx
-start_service
-view_info
+check_distribution&&check_dockerInstall&&config_v2&&config_nginx&&start_service&&view_info
 
 
 

@@ -31,7 +31,7 @@ select choice in ${MENU_1[@]};do
 
 			#删除
 			rm -f ./AutoTODo.sh\
-			&&wget -N --no-check-certificate "https://raw.githubusercontent.com/vizshrc/AutoTODo/master/AutoTODo.sh"&&echo_GreenFont "脚本已更新，请选择接下来的操作"&&sudo chmod +x AutoTODo.sh&&./AutoTODo.sh
+			&&wget -N --no-check-certificate "https://raw.githubusercontent.com/vizshrc/AutoTODo/master/AutoTODo.sh"&&echo_GreenFont "脚本已更新，请选择接下来的操作"&&chmod +x AutoTODo.sh&&./AutoTODo.sh
 			
 			break
 			;;
@@ -39,7 +39,7 @@ select choice in ${MENU_1[@]};do
 
 		3.安装docker )
 			echo_YellowFont "您选择的是安装docker"
-			wget -N --no-check-certificate "https://raw.githubusercontent.com/vizshrc/AutoTODo/master/docker_install.sh"&&sudo chmod +x docker_install.sh&&./docker_install.sh
+			wget -N --no-check-certificate "https://raw.githubusercontent.com/vizshrc/AutoTODo/master/docker_install.sh"&&chmod +x docker_install.sh&&./docker_install.sh
 
 #设置脚本循环，出去的条件是主动选择1.退出脚本
 #-f这个只能存在if中
@@ -52,7 +52,7 @@ select choice in ${MENU_1[@]};do
 
 		4.安装v2ray )
 			echo_YellowFont "您选择的是安装v2ray"
-			wget -N --no-check-certificate "https://raw.githubusercontent.com/vizshrc/AutoTODo/master/v2ray_docker.sh"&&sudo chmod +x v2ray_docker.sh&&./v2ray_docker.sh
+			wget -N --no-check-certificate "https://raw.githubusercontent.com/vizshrc/AutoTODo/master/v2ray_docker.sh"&&chmod +x v2ray_docker.sh&&./v2ray_docker.sh
 #设置脚本循环，出去的条件是主动选择1.退出脚本
 #-f这个只能存在if中
 			if [[ -f AutoToDo.sh ]]; then
@@ -66,34 +66,3 @@ select choice in ${MENU_1[@]};do
 			exit 2
 	esac
 done
-
-
-# MENU_2=(1.安装docker 2.docker安装v2ray 3.dcoker安装qbitrrent)
-# select MENU_ITEM in ${MENU_ITEMS[@]}
-# do echo "好的"
-# break
-# done
-
-#!/bin/bash
-# select choice in 1yuan 2yuan 5yuan Quit ;do 
-#     case $choice in
-#         1yuan)
-#             echo "You can buy a glass of water "
-#             ;;  
-#         2yuan)
-#             echo "You can buy  an ice cream "
-#             ;;  
-#         5yuan)
-#             echo "You can buy  a chicken leg "
-#             echo "Choice $REPLY" 
-#             ;;  
-#         Quit)
-#             echo "Bye"
-#             break
-#             ;;  
-#         *)  
-#             echo "Enter error!"
-#             exit 2
-     
-#     esac
-# done
