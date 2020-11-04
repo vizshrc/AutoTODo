@@ -52,7 +52,7 @@ select choice in ${MENU_1[@]};do
 
 		4.安装v2ray )
 			echo_YellowFont "您选择的是安装v2ray"
-			wget -N --no-check-certificate "https://raw.githubusercontent.com/vizshrc/AutoTODo/master/v2ray_docker.sh"&&chmod +x v2ray_docker.sh&&./v2ray_docker.sh
+			wget -N --no-check-certificate --content-disposition "https://raw.githubusercontent.com/vizshrc/AutoTODo/master/v2ray_docker.sh"&&chmod +x v2ray_docker.sh&&./v2ray_docker.sh
 #设置脚本循环，出去的条件是主动选择1.退出脚本
 #-f这个只能存在if中
 			if [[ -f AutoToDo.sh ]]; then
