@@ -46,14 +46,15 @@ select choice in ${MENU_1[@]};do
 			# if [[ -f AutoToDo.sh ]]; then
 			# 	./AutoToDo.sh
 			# fi
-			# break
-			# ;;
+			 break
+			 ;;
 
 
 		4.安装v2ray )
 			echo_YellowFont "您选择的是安装v2ray"
 			wget --no-check-certificate --content-disposition "https://raw.githubusercontent.com/vizshrc/AutoTODo/master/v2ray_docker.sh"&&chmod +x v2ray_docker.sh&&./v2ray_docker.sh
-
+			break
+			;;
 #github连接以前不用冒号，现在必须得！		
 		*)
 			echo "选项错误"
