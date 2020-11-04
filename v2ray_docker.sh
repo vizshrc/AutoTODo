@@ -109,12 +109,7 @@ echo "
 echo_GreenFont "已经生成v2ray的启动配置（config.json）"
 }
 
-#移动配置文件
-if [[ -f /etc/v2ray ]]; then
-  mv config.json /etc/v2ray&&echo_GreenFont "配置已经生成并在位于/etc/v2ray中"
-else mkdir -p /etc/v2ray&&mv config.json /etc/v2ray\
-  &&echo_GreenFont "配置已经生成并在位于/etc/v2ray中"
-fi
+
 
 #====================================================================
 
@@ -231,6 +226,13 @@ echo_GreenFont "已经生成nginx关于v2ray的配置（v2ray_nginx.conf）,暂�
 #=============================================-=============================
 #启动服务
 start_service(){
+
+#移动v2ray配置文件到/etc/v2ray
+if [[ -f /etc/v2ray ]]; then
+  mv config.json /etc/v2ray&&echo_GreenFont "v2ray配置文件config.json已经在/etc/v2ray中就绪"
+else mkdir -p /etc/v2ray&&mv config.json /etc/v2ray\
+  &&echo_GreenFont "v2ray配置文件config.json已经在/etc/v2ray中就绪"
+fi
   
 #1.nginx
 nginx -v||${apt} install nginx
