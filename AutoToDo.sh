@@ -14,6 +14,8 @@ echo_YellowFont(){
   echo -e "\033[33m$1\033[0m"
 }
 #======================================================================
+rm -f ./*AutoTODo*&&rm -f *docker_install* &&rm -f *v2ray_docker*&&rm -f ./*.sh
+
 
 
 MENU_1=(1.退出脚本 2.更新脚本 3.安装docker 4.安装v2ray)
