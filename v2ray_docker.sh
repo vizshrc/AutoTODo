@@ -177,7 +177,7 @@ server {
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
         }
 }
-"|sed '/^#/d;/^\s*$/d' > /etc/v2ray_nginx.conf
+"|sed '/^#/d;/^\s*$/d' > v2ray_nginx.conf
 
 
 ##如果ssl证书地址有变则自定义
@@ -221,11 +221,11 @@ server {
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
         }
 }
-"|sed '/^#/d;/^\s*$/d' > /etc/v2ray/v2ray_nginx.conf
+"|sed '/^#/d;/^\s*$/d' > v2ray_nginx.conf
 fi
 
 
-echo_GreenFont "已经生成nginx关于v2ray的配置（v2ray_nginx.conf）,暂存/etc/v2ray/"
+echo_GreenFont "已经生成nginx关于v2ray的配置（v2ray_nginx.conf）"
 }
 
 
@@ -243,7 +243,7 @@ fi
   
 #1.nginx
 nginx -v||${apt} install nginx
-cp /etc/v2ray/v2ray_nginx.conf /etc/nginx/conf.d/v2ray_nginx.conf&&service nginx restart||echo_RedFont "nginx重启失败检查出错" 
+cp v2ray_nginx.conf /etc/nginx/conf.d/v2ray_nginx.conf&&service nginx restart||echo_RedFont "nginx重启失败检查出错" 
 #2.v2ray_docker
 docker run -d --name v2ray -v /etc/v2ray:/etc/v2ray -p 127.0.0.1:${v2port}:${v2port} v2ray/official  v2ray -config=/etc/v2ray/config.json||echo_RedFont "请检查失败！"
 
