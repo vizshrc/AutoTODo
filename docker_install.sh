@@ -1,4 +1,9 @@
 #!/bin/bash
+check_root(){
+  [[ $EUID != 0 ]] && echo_RedFont "
+  安装docker需要ROOT用户，当前没有ROOT权限！\
+  " && exit 1
+}
 check_distribution() {
         lsb_dist=""
         # Every system that we officially support has /etc/os-release
@@ -61,5 +66,5 @@ locaton_select(){
 done
 }
 #======================================================================
-check_distribution&&locaton_select
+check_root&&check_distribution&&locaton_select
 
