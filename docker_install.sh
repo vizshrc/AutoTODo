@@ -68,5 +68,7 @@ locaton_select(){
 done
 }
 #======================================================================
-check_root&&check_distribution&&locaton_select
+check_root
+check_distribution
+locaton_select
 
