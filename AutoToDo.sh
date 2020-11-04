@@ -31,21 +31,13 @@ select choice in ${MENU_1[@]};do
 
 			#删除
 			rm -f ./AutoTODo.sh\
-			&&wget -N --no-check-certificate "https://raw.githubusercontent.com/vizshrc/AutoTODo/master/AutoTODo.sh"&&echo_GreenFont "脚本已更新，请选择接下来的操作"&&chmod +x AutoTODo.sh&&./AutoTODo.sh
-			
+			&&wget -N --no-check-certificate "https://raw.githubusercontent.com/vizshrc/AutoTODo/master/AutoTODo.sh"&&echo_GreenFont "脚本已更新，请选择接下来的操作"&&chmod +x AutoTODo.sh&&./AutoTODo.sh			
 			break
 			;;
-
-
 		3.安装docker )
 			echo_YellowFont "您选择的是安装docker"
 			wget --no-check-certificate --content-disposition "https://raw.githubusercontent.com/vizshrc/AutoTODo/master/docker_install.sh"&&chmod +x docker_install.sh&&bash ./docker_install.sh
 
-#设置脚本循环，出去的条件是主动选择1.退出脚本
-#-f这个只能存在if中
-			# if [[ -f AutoToDo.sh ]]; then
-			# 	./AutoToDo.sh
-			# fi
 			 break
 			 ;;
 
