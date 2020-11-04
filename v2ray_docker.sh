@@ -130,11 +130,11 @@ echo -n "输入你的v2伪装网址:";read v2web
 
 echo -n "输入你的网站路径,如/var/www";read webfile_path
 [[ -z "${webfile_path}" ]] && read -e -p "（未定义path,请先定义）:" webfile_path
- if [[-f ${webfile_path}]];then
-  echo ""
- else
-  echo_RedFont "网页路径不存在，请检查"&&exit 1
- fi 
+ # if [[-f ${webfile_path}]];then
+ #  echo ""
+ # else
+ #  echo_RedFont "网页路径不存在，请检查"&&exit 1
+ # fi 
 
 echo -e "ssl证书是否用acme.sh申请的【ecc】证书？且位于/root/.acme目录下？"
   read -e -p "(默认：yes):" check_sslpath
