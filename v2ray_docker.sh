@@ -1,4 +1,30 @@
 #!/bin/bash
+#检查脚本是否适用于当前系统
+check_distribution() {
+        lsb_dist=""
+        # Every system that we officially support has /etc/os-release
+        if [ -r /etc/os-release ]; then
+                lsb_dist="$(. /etc/os-release && echo "$ID")"
+        fi
+        # Returning an empty string here should be alright since the
+        # case statements don't act unless you provide an actual value
+        echo "你的系统是$lsb_dist"
+
+        #对适用发行版本的处理（定义包管理器命令）
+        ##为了好看(习惯了debian)，所以包管理器的变量名就为apt,即${apt}
+        case ${lsb_dist} in
+        "debian") apt=apt-get;;
+        "ubuntu") apt=apt-get;;
+        "centos") apt=yum;;  
+        esac 
+
+        #对不适用发行版本的处理（退出脚本）
+        #安装前确认系统符合与否
+        if [[ ${apt} != "apt-get" ]] && [[ ${apt} != "yum" ]] ; then 
+          echo_RedFont "你的系统不是debian、ubuntu或centos,不能使用该脚本安装相应的服务(docker、v2ray、nginx)"\
+          &&exit 1
+        fi
+}
 #======================================================================
   #2.优化shell脚本，设置Font_color,注意只能在使用echo时使用
 echo_GreenFont(){
@@ -16,12 +42,10 @@ echo_YellowFont(){
 #======================================================================
 #检查是否安装了docker,否则无法启动v2ray容器
 check_dockerInstall(){
-  docker -v||echo_RedFont "你没有安装docker,无法使用v2ray"\
-&&echo_GreenFont "接下来自动为你安装docker,并启动服务"\
+  docker -v||(echo_RedFont "你没有安装docker,无法使用v2ray"&&echo_GreenFont "接下来自动为你安装docker,并启动服务"\
 &&wget -N --no-check-certificate "https://raw.githubusercontent.com/vizshrc/AutoTODo/master/docker_install.sh"\
-&&sudo chmod +x docker_install.sh&&./docker_install.sh
+&&sudo chmod +x docker_install.sh&&./docker_install.sh)
 }
-
 
 #======================================================================
 #1.生成v2的启动配置 写成函数config_v2方便调用
@@ -40,7 +64,7 @@ read -e -p "请定义v2的inbound端口[1~65556]:" v2port\
 echo "========================"
 
 
-
+#-z 字符串为"null",即是指字符串长度为零
 echo -e "请定义v2通信的UUID(建议随机)"
 		read -e -p "(默认:随机生成):" v2UUID
 		[[ -z "${v2UUID}" ]] && v2UUID=$(uuidgen)
@@ -207,68 +231,12 @@ echo_GreenFont "已经生成nginx关于v2ray的配置（v2ray_nginx.conf）,暂�
 #=============================================-=============================
 #启动服务
 start_service(){
-#检查环境，脚本是否适用，主要是linux包管理器不同，安装依赖时确定用apt还是yum
-
-check_sys(){
-  if [[ -f /etc/redhat-release ]]; then
-    release="centos"
-
-  elif [[ -f /etc/issue ]] && cat /etc/issue | grep -q -E -i "debian"; then
-    release="debian"
-
-  elif [[ -f /etc/issue ]] && cat /etc/issue\
-   | grep -q -E -i "ubuntu"; then
-    release="ubuntu"
-
-  elif [[ -f /etc/issue ]] && cat /etc/issue\
-   | grep -q -E -i "centos|red hat|redhat"; then
-    release="centos"
-
-  elif [[ -f /proc/version ]] && cat /proc/version\
-   | grep -q -E -i "debian"; then
-    release="debian"
-
-  elif [[ -f /proc/version ]] && cat /proc/version\
-   | grep -q -E -i "ubuntu"; then
-    release="ubuntu"
-
-  elif [[ -f /proc/version ]] && cat /proc/version\
-   | grep -q -E -i "centos|red hat|redhat"; then
-    release="centos"
-    fi
-
-  bit=`uname -m`
-
-  #发行版本不符合处理（提示并退出）
-    #两部分：生成配置（几乎不影响）
-    #        +安装服务（看系统，不合适的话在询问安装服务时退出）
- 
-
-  #对适用发行版本的处理（定义包管理器）
-     ##为了好看(习惯了debian)，所以包管理器的变量名就为apt,即${apt}
-    case ${release} in
-      "debian") apt=apt-get;;
-      "ubuntu") apt=apt-get;;
-      "centos") apt=yum;;  
-    esac 
-}
-
-
-
-  #安装前确认系统符合与否
-  if [[ ${apt} != "apt-get" ]] && [[ ${apt} != "yum" ]] ; then 
-    echo_RedFont "你的系统不是debian、ubuntu或centos,不能使用该脚本安装相应的服务(docker、v2ray、nginx)"\
-    &&exit 1
-  fi
-
+  
 #1.nginx
 nginx -v||${apt} install nginx
 cp /etc/v2ray/v2ray_nginx.conf /etc/nginx/conf.d/v2ray_nginx.conf&&service nginx restart||echo_RedFont "nginx重启失败检查出错" 
 #2.v2ray_docker
 docker run -d --name v2ray -v /etc/v2ray:/etc/v2ray -p 127.0.0.1:${v2port}:${v2port} v2ray/official  v2ray -config=/etc/v2ray/config.json||echo_RedFont "请检查失败！"
-
-
-
 
 }
 #=============================================-=============================
@@ -290,7 +258,7 @@ view_info(){
 #=============================================-=============================
 
 #主程序来了
-
+check_distribution
 check_dockerInstall
 config_v2
 config_nginx
