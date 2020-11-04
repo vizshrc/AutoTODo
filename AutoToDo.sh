@@ -39,27 +39,21 @@ select choice in ${MENU_1[@]};do
 
 		3.安装docker )
 			echo_YellowFont "您选择的是安装docker"
-			wget -N --no-check-certificate "https://raw.githubusercontent.com/vizshrc/AutoTODo/master/docker_install.sh"&&chmod +x docker_install.sh&&./docker_install.sh
+			wget --no-check-certificate --content-disposition "https://raw.githubusercontent.com/vizshrc/AutoTODo/master/docker_install.sh"&&chmod +x docker_install.sh&&bash ./docker_install.sh
 
 #设置脚本循环，出去的条件是主动选择1.退出脚本
 #-f这个只能存在if中
-			if [[ -f AutoToDo.sh ]]; then
-				./AutoToDo.sh
-			fi
-			break
-			;;
+			# if [[ -f AutoToDo.sh ]]; then
+			# 	./AutoToDo.sh
+			# fi
+			# break
+			# ;;
 
 
 		4.安装v2ray )
 			echo_YellowFont "您选择的是安装v2ray"
-			wget -N --no-check-certificate --content-disposition "https://raw.githubusercontent.com/vizshrc/AutoTODo/master/v2ray_docker.sh"&&chmod +x v2ray_docker.sh&&./v2ray_docker.sh
-#设置脚本循环，出去的条件是主动选择1.退出脚本
-#-f这个只能存在if中
-			if [[ -f AutoToDo.sh ]]; then
-				./AutoToDo.sh
-			fi
-			break
-			;;
+			wget --no-check-certificate --content-disposition "https://raw.githubusercontent.com/vizshrc/AutoTODo/master/v2ray_docker.sh"&&chmod +x v2ray_docker.sh&&./v2ray_docker.sh
+
 #github连接以前不用冒号，现在必须得！		
 		*)
 			echo "选项错误"
